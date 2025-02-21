@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - Food Donation Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            background-color: #555;
+        }
+
+        main {
+            width: 80%;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .donation-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .donation-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .donation-card h4 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .donation-card p {
+            color: #666;
+        }
+
+        .btn-donation {
+            background-color: #444;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn-donation:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Food Donation Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Donor Dashboard</h2>
+        <form id="donorForm">
+            <label for="donorName">Name:</label>
+            <input type="text" id="donorName" placeholder="Enter your name" required>
+
+            <label for="donorPhone">Phone Number:</label>
+            <input type="tel" id="donorPhone" placeholder="Enter your phone number" required>
+
+            <label for="donorLocation">Location:</label>
+            <input type="text" id="donorLocation" placeholder="Enter your location" required>
+
+            <label for="foodType">Food Type:</label>
+            <input type="text" id="foodType" placeholder="Enter food type" required>
+
+            <label for="quantity">Quantity (lbs):</label>
+            <input type="number" id="quantity" placeholder="Enter quantity in lbs" required>
+
+            <label for="expirationDate">Expiration Date:</label>
+            <input type="date" id="expirationDate" required>
+
+            <label for="pickupMethod">Pickup/Drop-off:</label>
+            <select id="pickupMethod">
+                <option value="pickup">Pickup</option>
+                <option value="dropoff">Drop-off</option>
+            </select>
+
+            <button type="submit">Post Donation</button>
+        </form>
+
+        <h3>Donation History</h3>
+        <div id="donationHistory">
+            <!-- Donor's past donations will be displayed here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Food Donation Platform</p>
+    </footer>
+
+    <script>
+        // Handle donor form submission
+        document.getElementById('donorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const donorName = document.getElementById('donorName').value;
+            const donorPhone = document.getElementById('donorPhone').value;
+            const donorLocation = document.getElementById('donorLocation').value;
+            const foodType = document.getElementById('foodType').value;
+            const quantity = document.getElementById('quantity').value;
+            const expirationDate = document.getElementById('expirationDate').value;
+            const pickupMethod = document.getElementById('pickupMethod').value;
+
+            alert(Donation posted successfully!\nDonor: ${donorName}\nFood: ${foodType}\nQuantity: ${quantity} lbs\nPickup Method: ${pickupMethod});
+            renderDonationHistory();
+        });
+
+        // Render donation history
+        function renderDonationHistory() {
+            const donationHistory = document.getElementById('donationHistory');
+            const donations = [
+                { foodType: "Rice", quantity: 50, location: "Chicago", expirationDate: "2025-02-22", pickupMethod: "Pickup" },
+                { foodType: "Canned Beans", quantity: 100, location: "New York", expirationDate: "2025-03-05", pickupMethod: "Drop-off" },
+            ];
+
+            donationHistory.innerHTML = '';
+
+            donations.forEach(donation => {
+                const donationCard = document.createElement('div');
+                donationCard.classList.add('donation-card');
+                donationCard.innerHTML = `
+                    <h4>${donation.foodType}</h4>
+                    <p>Quantity: ${donation.quantity} lbs</p>
+                    <p>Location: ${donation.location}</p>
+                    <p>Expiration Date: ${donation.expirationDate}</p>
+                    <p>Pickup Method: ${donation.pickupMethod}</p>
+                    <a href="#" class="btn-donation">View Details</a>
+                `;
+                donationHistory.appendChild(donationCard);
+            });
+        }
+
+        // Call renderDonationHistory when the page loads
+        renderDonationHistory();
+    </script>
+</body>
+</html>
