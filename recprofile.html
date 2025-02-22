@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receiver Profile - Food Donation Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            background-color: #e74c3c; /* Red background */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #c0392b;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        header nav ul li a:hover {
+            background-color: #e74c3c;
+        }
+
+        main {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-card {
+            background-color: #f2dede;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .profile-card h4 {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .btn-edit-profile {
+            display: inline-block;
+            background-color: #c0392b;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-edit-profile:hover {
+            background-color: #e74c3c;
+        }
+
+        .edit-profile-form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .edit-profile-form input, .edit-profile-form button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .edit-profile-form button {
+            background-color: #c0392b;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Food Donation Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">🏠 Home</a></li>
+                <li><a href="recprofile.html">👤 Profile</a></li>
+                <li><a href="receiver.html">📦 Receiver Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Receiver Profile</h2>
+        <div class="profile-card" id="profileCard">
+            <h4 id="receiverName">John Doe</h4>
+            <p><strong>Email:</strong> <span id="receiverEmail">johndoe@example.com</span></p>
+            <p><strong>Phone:</strong> <span id="receiverPhone">(555) 123-4567</span></p>
+            <p><strong>Location:</strong> <span id="receiverLocation">Chicago, IL</span></p>
+            <p><strong>Preferred Pickup Method:</strong> <span id="pickupMethod">Pickup</span></p>
+            <p><strong>Last Donation Received:</strong> <span id="lastDonation">Rice - 50 lbs (2025-02-22)</span></p>
+            <a href="javascript:void(0);" class="btn-edit-profile" onclick="showEditForm()">✏ Edit Profile</a>
+        </div>
+
+        <div class="edit-profile-form" id="editProfileForm">
+            <h3>Edit Profile</h3>
+            <input type="text" id="editName" placeholder="Name" value="John Doe">
+            <input type="email" id="editEmail" placeholder="Email" value="johndoe@example.com">
+            <input type="text" id="editPhone" placeholder="Phone" value="(555) 123-4567">
+            <input type="text" id="editLocation" placeholder="Location" value="Chicago, IL">
+            <input type="text" id="editPickupMethod" placeholder="Preferred Pickup Method" value="Pickup">
+            <input type="text" id="editLastDonation" placeholder="Last Donation Received" value="Rice - 50 lbs (2025-02-22)">
+            <button onclick="updateProfile()">Update Profile</button>
+        </div>
+    </main>
+
+    <script>
+        function showEditForm() {
+            document.getElementById('profileCard').style.display = 'none';
+            document.getElementById('editProfileForm').style.display = 'flex';
+        }
+
+        function updateProfile() {
+            document.getElementById('receiverName').textContent = document.getElementById('editName').value;
+            document.getElementById('receiverEmail').textContent = document.getElementById('editEmail').value;
+            document.getElementById('receiverPhone').textContent = document.getElementById('editPhone').value;
+            document.getElementById('receiverLocation').textContent = document.getElementById('editLocation').value;
+            document.getElementById('pickupMethod').textContent = document.getElementById('editPickupMethod').value;
+            document.getElementById('lastDonation').textContent = document.getElementById('editLastDonation').value;
+            document.getElementById('editProfileForm').style.display = 'none';
+            document.getElementById('profileCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

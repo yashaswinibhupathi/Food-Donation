@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Profile - Food Donation Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            background-color: #e74c3c; /* Red background */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #c0392b; /* Darker red background */
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        header nav ul li a:hover {
+            background-color: #e74c3c; /* Lighter red on hover */
+        }
+
+        main {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-card {
+            background-color: #f2dede; /* Light red background */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .profile-card h4 {
+            font-size: 24px;
+            color: #e74c3c; /* Red text */
+            margin-bottom: 10px;
+        }
+
+        .profile-card p {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin: 5px 0;
+        }
+
+        .btn-edit-profile {
+            display: inline-block;
+            background-color: #c0392b; /* Dark red button */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-edit-profile:hover {
+            background-color: #e74c3c; /* Lighter red on hover */
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background-color: #e74c3c; /* Red footer */
+            color: white;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        /* Edit Profile Form */
+        .edit-profile-form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .edit-profile-form input, .edit-profile-form button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .edit-profile-form input {
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .edit-profile-form button {
+            background-color: #c0392b;
+            color: white;
+            cursor: pointer;
+        }
+
+        .edit-profile-form button:hover {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Food Donation Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">🏠 Home</a></li>
+                <li><a href="donprofile.html">👤 Profile</a></li>
+                <li><a href="donor.html">📦 Donor Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Donor Profile</h2>
+        <div class="profile-card" id="profileCard">
+            <h4 id="donorName">Jane Smith</h4>
+            <p><strong>Email:</strong> <span id="donorEmail">janesmith@example.com</span></p>
+            <p><strong>Phone:</strong> <span id="donorPhone">(555) 987-6543</span></p>
+            <p><strong>Location:</strong> <span id="donorLocation">New York, NY</span></p>
+            <p><strong>Last Donation Made:</strong> <span id="donationDetails">Canned Beans - 100 lbs (2025-02-20)</span></p>
+            <a href="javascript:void(0);" class="btn-edit-profile" onclick="showEditForm()">✏ Edit Profile</a>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <div class="edit-profile-form" id="editProfileForm">
+            <h3>Edit Profile</h3>
+            <input type="text" id="editName" placeholder="Name" value="Jane Smith">
+            <input type="email" id="editEmail" placeholder="Email" value="janesmith@example.com">
+            <input type="text" id="editPhone" placeholder="Phone" value="(555) 987-6543">
+            <input type="text" id="editLocation" placeholder="Location" value="New York, NY">
+            <input type="text" id="editDonation" placeholder="Last Donation Made" value="Canned Beans - 100 lbs (2025-02-20)">
+            <button onclick="updateProfile()">Update Profile</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Food Donation Platform</p>
+    </footer>
+
+    <script>
+        // Function to show the edit profile form
+        function showEditForm() {
+            document.getElementById('profileCard').style.display = 'none';
+            document.getElementById('editProfileForm').style.display = 'flex';
+        }
+
+        // Function to update profile details
+        function updateProfile() {
+            var name = document.getElementById('editName').value;
+            var email = document.getElementById('editEmail').value;
+            var phone = document.getElementById('editPhone').value;
+            var location = document.getElementById('editLocation').value;
+            var donation = document.getElementById('editDonation').value;
+
+            document.getElementById('donorName').textContent = name;
+            document.getElementById('donorEmail').textContent = email;
+            document.getElementById('donorPhone').textContent = phone;
+            document.getElementById('donorLocation').textContent = location;
+            document.getElementById('donationDetails').textContent = donation;
+
+            // Hide the edit form and show the updated profile
+            document.getElementById('editProfileForm').style.display = 'none';
+            document.getElementById('profileCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

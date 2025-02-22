@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <title>Food Donation - Login & Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://source.unsplash.com/1600x900/?food,donation') no-repeat center center/cover;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        p {
+            margin-top: 15px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <p class="error" id="login-error-message">Invalid email or password</p>
+        <button onclick="validateLogin()">Login</button>
+        <p>New here? <a href="#" onclick="showRegister()">Sign Up</a></p>
+    </div>
+    
+    <div class="container" id="register-container" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="register-name" placeholder="Full Name" required>
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="password" id="register-password" placeholder="Password" required>
+        <select id="register-role">
+            <option value="donor">Donor</option>
+            <option value="ngo">NGO/Recipient</option>
+        </select>
+        <p class="error" id="register-error-message">Please fill out all fields correctly</p>
+        <button onclick="registerUser()">Register</button>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+            const errorMessage = document.getElementById("login-error-message");
+
+            let users = JSON.parse(localStorage.getItem("users")) || {};
+            
+            if (users[email] && users[email].password === password) {
+                alert("Login successful!");
+
+                // Store user role & redirect accordingly
+                localStorage.setItem("userRole", users[email].role);
+                
+                if (users[email].role === "donor") {
+                    window.location.href = "donor.html";
+                } else if (users[email].role === "ngo") {
+                    window.location.href = "receiver.html";
+                }
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        function registerUser() {
+            const name = document.getElementById("register-name").value;
+            const email = document.getElementById("register-email").value;
+            const password = document.getElementById("register-password").value;
+            const role = document.getElementById("register-role").value;
+            const errorMessage = document.getElementById("register-error-message");
+
+            if (name && email && password) {
+                let users = JSON.parse(localStorage.getItem("users")) || {};
+                
+                if (users[email]) {
+                    alert("User already exists! Please log in.");
+                    showLogin();
+                    return;
+                }
+
+                users[email] = { name, password, role };
+                localStorage.setItem("users", JSON.stringify(users));
+
+                alert("Registration successful! You can now log in.");
+                showLogin();
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        function showRegister() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("register-container").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("register-container").style.display = "none";
+            document.getElementById("login-container").style.display = "block";
+        }
+    </script>
+    
+
+</body>
+</html>
